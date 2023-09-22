@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --main-bg: #FFF;
+  --header-bg: #110000;
+  --footer-bg: #110000;
+  --menu-bg: #110000;
+  
+  --font-color: #393939;
+  --font-reverse: #FFF;
+  --primary-color: #EE0000;
+  --input-bg: #FFF;
+}
+
+:root {
+  font-family: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.7;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 14px;
+}
+
+html, body, ul, ul li, dl, dl dd, ol, ol li, p, h1, h2, h3, h4 {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--main-bg);
+  color: var(--font-color);
+  position: relative;
+  font-size: 1rem;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul li {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+button, input[type="text"], input[type="number"], input[type="password"], textarea {
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  line-height: 1;
+  color: inherit;
+}
+
+button {
+  white-space: nowrap;
+  word-break: keep-all;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+input[type="text"], input[type="password"], input[type="number"] {
+  min-width: 10rem;
+  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+  
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 3rem var(--input-bg) inset;
+    box-shadow: 0 0 0 3rem var(--input-bg) inset;
+    -webkit-text-fill-color: var(--font-color);
+    background-color: transparent!important;
+  }
+}
+
+input[type="number"],
+input[type="password"],
+input[type="tel"],
+input[type="text"],
+select:focus,
+textarea:focus,
+textarea {
+  font-size: 1rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+input[type="text"]:disabled {
+  cursor: not-allowed;
+}
+input[type="text"]:read-only {
+  cursor: default;
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+  input {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": {
+    "home": "Home",
+    "about": "About",
+    "profile": "Profile",
+    "notFound": "Page Not Found"
+  },
+  "button": {
+    "login": "Sign In",
+    "register": "Sign Up"
+  }
+}
