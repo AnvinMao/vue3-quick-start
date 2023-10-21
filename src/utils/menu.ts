@@ -1,13 +1,13 @@
-interface Navigation {
+export interface Navigation {
   name: string;
   path: string;
+  children?: Navigation[]
 }
 
-const MainNavigation: Navigation[] = [
-  { name: 'home', path: '/' },
+export const MainNavigation: Navigation[] = [
+  { name: 'home', path: '#', children: [
+    { name: 'home', path: '/' },
+    { name: 'home', path: '/' }
+  ]},
   { name: 'profile', path: '/profile' }
 ];
-
-export {
-  MainNavigation
-}

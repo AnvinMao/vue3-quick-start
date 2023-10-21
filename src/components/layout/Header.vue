@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import IconMenu from './icons/IconMenu.vue';
-import IconUser from './icons/IconUser.vue';
-import IconNext from './icons/IconNext.vue';
-import Locale from './Locale.vue';
+import IconMenu from '../icons/IconMenu.vue';
+import IconUser from '../icons/IconUser.vue';
+import IconNext from '../icons/IconNext.vue';
+import Locale from '../Locale.vue';
+import Menu from './Menu.vue';
 import { MainNavigation } from '@/utils/menu';
 import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -16,27 +17,28 @@ const active = computed<string>(() => (route.meta.active || '') as string);
 const expanded = ref<boolean>(false);
 
 const navTo = (path: string) => {
+  expanded.value = false;
   router.push({ path: path });
 }
 </script>
 
 <template>
   <header>
-    <nav class="page flex-row">
+    <div class="page flex-row">
       <RouterLink to="/">
         <img src="@/assets/images/logo.png" class="logo" alt="Site Template" />
       </RouterLink>
       <div class="navs" :class="{'show': expanded}" @click="expanded = false">
-        <ul class="flex-row left-x" @click.stop>
-          <li v-if="!userStore.user" class="mheader auth pc-hidden">
+        <nav class="flex-row left-x" @click.stop>
+          <div v-if="!userStore.user" class="mheader auth pc-hidden">
             <RouterLink to="/login">
               {{ $t('button.login') }}
             </RouterLink>
             <RouterLink to="/register" class="btn">
               {{ $t('button.register') }}
             </RouterLink>
-          </li>
-          <li v-else class="mheader user pc-hidden" @click="navTo('/user')">
+          </div>
+          <div v-else class="mheader user pc-hidden" @click="navTo('/user')">
             <div class="flex-row">
               <div class="avatar flex-col"><IconUser class="icon" /></div>
               <div class="info">
@@ -45,21 +47,19 @@ const navTo = (path: string) => {
               </div>
               <IconNext class="forward" />
             </div>
-          </li>
-          <li
+          </div>
+          <Menu
             v-for="item in MainNavigation"
             :key="item.name"
-            :class="{'active': active === item.name}"
-            @click="navTo(item.path)"
-          >
-            {{ $t(`title.${item.name}`) }}
-          </li>
-          <li class="pc-hidden">
-            <div class="language">
-              <Locale position="nav" />
-            </div>
-          </li>
-        </ul>
+            :menu="item"
+            :active="active === item.name"
+            @onClick="navTo(item.path)"
+          />
+          <!-- language -->
+          <div class="language pc-hidden">
+            <Locale position="nav" />
+          </div>
+        </nav>
       </div>
       <Locale class="mobile-hidden" />
       <div class="actions mobile-hidden">
@@ -77,7 +77,7 @@ const navTo = (path: string) => {
       <span class="menu pc-hidden" @click="expanded = !expanded">
         <IconMenu class="icon" />
       </span>
-    </nav>
+    </div>
   </header>
 </template>
 
@@ -96,16 +96,8 @@ header {
     flex: 1;
     padding-left: 5vw;
     font-size: 1.1rem;
-    li {
-      padding: .3rem 1rem;
-      cursor: pointer;
-      &:hover, &.active {
-        color: var(--primary-color);
-      }
-    }
     .mheader {
-      padding-top: 2rem;
-      padding-bottom: 2rem;
+      padding: 2rem 1rem;
       .auth {
         text-align: center;
       }
@@ -163,7 +155,7 @@ header {
       height: calc(var(--vh) * 100);
       background-color: rgba(0,0,0,.2);
       padding-left: 0;
-      ul {
+      nav {
         height: 100%;
         width: 75%;
         max-width: 25rem;
@@ -176,14 +168,8 @@ header {
       }
       &:not(.show) {
         visibility: hidden;
-        ul {
+        nav {
           right: -90%;
-        }
-      }
-      li {
-        padding: .8rem 1.5rem;
-        &:not(:last-child) {
-          border-bottom: 1px solid rgba(100,100,100,.4);
         }
       }
       .language {
